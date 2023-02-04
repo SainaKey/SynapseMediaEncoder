@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net7.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Remove="MainModel.cs" />
+      <Compile Remove="MainViewModel.cs" />
+      <Compile Remove="ViewModel\MediaEncoderPresenter.cs" />
+      <Compile Remove="Resolutioncs.cs" />
+      <Compile Remove="Model\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MaterialDesignThemes" Version="4.8.0-ci155" />
+      <PackageReference Include="ReactiveProperty" Version="9.0.0-pre202301080724" />
+      <PackageReference Include="xFFmpeg.NET" Version="7.1.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Model\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Model\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Page Remove="Model\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="FFmpegEXE" />
+    </ItemGroup>
+
+</Project>

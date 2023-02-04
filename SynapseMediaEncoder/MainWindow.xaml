@@ -1,0 +1,38 @@
+﻿<Window x:Class="SynapseMediaEncoder.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SynapseMediaEncoder"
+        mc:Ignorable="d"
+        Title="SynapseMediaEncoder" Height="562" Width="1000" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="8*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        
+        <ScrollViewer Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" x:Name="ScrollViewer" Margin="10" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" CanContentScroll="True" 
+                      AllowDrop="True"
+                      Drop="FileListBox_Drop"
+                      DragOver="FileListBox_DragOver">
+            <ListBox VirtualizingPanel.ScrollUnit="Pixel" x:Name="EncodeList"
+                     HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+            </ListBox>
+        </ScrollViewer>
+        
+        <ComboBox Grid.Row="1" Grid.Column="0" Name="CodecBox" Margin="10" IsEditable="False" />
+        <ComboBox Grid.Row="1" Grid.Column="1" Name="SizeBox" Margin="10" IsEditable="False" />
+        <Button Grid.Row="2" Grid.Column="0" x:Name="EncodeButton" Grid.ColumnSpan="2" Content="Encode" Click="EncodeButton_Click" HorizontalAlignment="Left" Margin="10" />
+        <Button Grid.Row="2" Grid.Column="0" x:Name="CancelButton" Content="Cancel" Click="CancelButton_Click" HorizontalAlignment="Right" Margin="10" />
+        <Grid Grid.Row="2" Grid.Column="1" Margin="10" >
+            <TextBox Grid.Row="2" Grid.Column="1" x:Name="FFmpegPathText" Text="FFmpegPath:" IsReadOnly="true" Margin="0,0,90,0" />
+            <Button Grid.Row="2" Grid.Column="1" x:Name="SearchPathButton" Content="Select" Click="SearchPathButton_Click" Margin="400,0,0,0"/>
+        </Grid>
+    </Grid>
+</Window>
