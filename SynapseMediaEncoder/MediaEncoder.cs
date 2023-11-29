@@ -5,6 +5,7 @@ using System.IO;
 using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using FFmpeg.NET;
 using FFmpeg.NET.Enums;
 using Reactive.Bindings;
@@ -84,6 +85,13 @@ public class MediaEncoder
         };
         
         CancellationToken fake = new CancellationToken();
+
+        // ファイルが存在しない場合falseを返す
+        if (!File.Exists(encodeInfo.inputPath.Value))
+        {
+            MessageBox.Show($"ファイルが存在しません\n{encodeInfo.inputPath.Value}", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return false;
+        }
         await ffmpeg.ConvertAsync(inputFile, outputFile, conversionOptions,fake);
         
         return true;
