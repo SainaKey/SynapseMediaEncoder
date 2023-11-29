@@ -1,14 +1,12 @@
+using FFmpeg.NET;
+using FFmpeg.NET.Enums;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Numerics;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using FFmpeg.NET;
-using FFmpeg.NET.Enums;
-using Reactive.Bindings;
 
 namespace SynapseMediaEncoder;
 
