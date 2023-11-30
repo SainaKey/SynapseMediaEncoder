@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -217,6 +218,23 @@ namespace SynapseMediaEncoder
         }
         
         #endregion
-        
+
+
+        protected virtual void Close_Click(object sender, CancelEventArgs e)
+        {
+            // encodeInfos内のisEncodedが全てtrueの際何もせずに閉じる
+            var completed = encodeInfos.Where(x => x.isEncoded).Count() == encodeInfos.Count;
+            if (completed) return;
+
+            var running = encodeInfos.Any(x => x.isEncoded == false && x.progress.Value > 0);
+            if (running)
+            {
+                if (MessageBoxResult.No == MessageBox.Show("エンコード中のファイルが存在します\n終了しますか？", "Alert",
+                        MessageBoxButton.YesNo, MessageBoxImage.Warning))
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
     }
 }
