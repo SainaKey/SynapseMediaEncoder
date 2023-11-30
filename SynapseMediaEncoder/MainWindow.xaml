@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SynapseMediaEncoder"
         mc:Ignorable="d"
+        Closing="Close_Click"
         Title="SynapseMediaEncoder" Height="562" Width="1000" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>

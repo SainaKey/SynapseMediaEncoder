@@ -1,46 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.IO;
-using System.Numerics;
-using System.Reactive.Linq;
-using System.Threading;
-using System.Windows.Controls.Primitives;
-using System.Xml.Serialization;
-using FFmpeg.NET;
-using FFmpeg.NET.Enums;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using SynapseMediaEncoder.View;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Reactive.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using System.Xml.Serialization;
 using Path = System.IO.Path;
 
 namespace SynapseMediaEncoder
 {
     public partial class MainWindow : Window
     {
-        public enum Weather
-        {
-            sunny,
-            cloudy,
-            rain,
-            snow
-        }
-        
         private ReactiveCollection<string> dropPathList = new ReactiveCollection<string>();
         private List<EncodeInfo> encodeInfos = new List<EncodeInfo>();
         private List<MediaView> mediaViews = new List<MediaView>();
@@ -217,6 +193,23 @@ namespace SynapseMediaEncoder
         }
         
         #endregion
-        
+
+
+        protected virtual void Close_Click(object sender, CancelEventArgs e)
+        {
+            // encodeInfos内のisEncodedが全てtrueの際何もせずに閉じる
+            var completed = encodeInfos.Where(x => x.isEncoded).Count() == encodeInfos.Count;
+            if (completed) return;
+
+            var running = encodeInfos.Any(x => x.isEncoded == false && x.progress.Value > 0);
+            if (running)
+            {
+                if (MessageBoxResult.No == MessageBox.Show("エンコード中のファイルが存在します\n終了しますか？", "Alert",
+                        MessageBoxButton.YesNo, MessageBoxImage.Warning))
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
     }
 }
